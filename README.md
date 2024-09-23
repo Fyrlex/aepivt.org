@@ -1,2 +1,2 @@
-# aepivt.org
-The website Sigma Alpha Chapter of Alpha Epsilon Pi International Fraternity
+# Sigma Alpha chapter of Alpha Epsilon Pi Website
+Made by Public Domain Chair Jaren Goldberg
