@@ -7,7 +7,9 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
   return (
     <>
       <SessionProvider session={session}>
-        <Component {...pageProps} />
+        <div className='fade-in'>
+          <Component {...pageProps} />
+        </div>
       </SessionProvider>
     </>
   );

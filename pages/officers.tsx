@@ -1,41 +1,16 @@
-import { NextPage } from 'next';
+import process from 'process';
+import { GetServerSideProps, NextPage } from 'next';
 import EboardCard from '../components/EboardCard';
 import Layout from '../components/Layout';
 import { useMetaData } from '../lib/hooks/useMetaData';
-import { EboardOfficer } from '../typings/index.js';
+import { IEboardOfficer } from '../src/models/Officer.js';
 
-const Officers: NextPage = () => {
-  const officers: EboardOfficer[] = [
-    {
-      rank: 1,
-      name: 'Tomas Louriero',
-      email: 'tomasloureiro@vt.edu',
-      facebook: 'https://www.facebook.com/tomas.loureiro.79',
-      gradYear: '2025',
-      image: '/assets/officers/tomas.jpg',
-      instagram: 'https://www.instagram.com/_tomasloureiro_',
-      linkedin: 'https://www.linkedin.com/in/tomasloureiro/',
-      major: 'Management Consulting and Analytics',
-      phone: '646-460-6826',
-      pledgeClass: 'Alpha Rho',
-      position: 'Master',
-    },
-    {
-      rank: 2,
-      name: 'Matthew Newman',
-      email: 'matthewbnewman@vt.edu',
-      facebook: 'https://www.facebook.com/matthew.newman.54966',
-      gradYear: '2025',
-      image: '/assets/officers/matthew.jpg',
-      instagram: 'https://www.instagram.com/matt.newman2121/',
-      linkedin: 'https://www.linkedin.com/in/matthew-newman-497503236/',
-      major: 'Animal and Poultry Science',
-      phone: '954-562-6673',
-      pledgeClass: 'Alpha Rho',
-      position: 'Lieutenant Master',
-    },
-  ];
+interface Props {
+  officers: IEboardOfficer[];
+}
 
+
+const Officers: NextPage<Props> = ({ officers }) => {
   return (
     <>
       {useMetaData('Officers', '/officers')}
@@ -48,10 +23,12 @@ const Officers: NextPage = () => {
             brotherhood. From a variety of backgrounds and majors, they are core to our success.
           </p>
         </div>
-        <div className="grid grid-cols-2 place-items-center gap-5 mx-72">
-          {officers.map((officer, i) => (
-            <EboardCard officer={officer} key={i} />
-          ))}
+        <div className="flex justify-center">
+          <div className="grid grid-cols-1 xl:grid-cols-2 place-items-center gap-20">
+            {officers.map((officer, i) => (
+              <EboardCard officer={officer} key={i} />
+            ))}
+          </div>
         </div>
       </Layout>
     </>
@@ -59,3 +36,19 @@ const Officers: NextPage = () => {
 };
 
 export default Officers;
+
+
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const request = await fetch(`${process.env.NEXTAUTH_URL}/api/eboard`,
+    {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    },
+  );
+
+  return {
+    props: {
+      officers: (await request.json()).data,
+    },
+  };
+};

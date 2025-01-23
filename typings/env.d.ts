@@ -9,6 +9,7 @@ declare global {
       NEXT_PUBLIC_DOMAIN: string;
       NEXTAUTH_SECRET: string;
       NEXT_PUBLIC_URL: string;
+      RESEND_API_KEY: string;
     }
   }
 }
