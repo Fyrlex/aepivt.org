@@ -2,21 +2,22 @@ import process from 'process';
 import { GetServerSideProps, NextPage } from 'next';
 import Layout from '../components/Layout';
 import { useMetaData } from '../lib/hooks/useMetaData';
-import { IPhilanthropy } from '../src/models/Philanthropy';
+import { PhilanthropyOptions } from '../models/Philanthropy';
+import Image from 'next/image.js';
 
 interface Props {
-  philanthropy: IPhilanthropy;
+  philanthropy: PhilanthropyOptions;
 }
 
 const Philanthropy: NextPage<Props> = ({ philanthropy }) => {
   return (
     <>
-      {useMetaData('Philanthropy', '/philanthropy')}
+      {useMetaData('/philanthropy')}
       <Layout>
-        <div className='flex flex-row justify-center my-16'>
-          <div className='flex flex-col space-y-10 w-[40vw]'>
-            <h1 className='text-[#092E6E] text-6xl font-bold my-2'>Philanthropy and Service</h1>
-            <div className='flex flex-col space-y-10 font-light text-xl'>
+        <div className='my-10 flex justify-center text-[#092E6E] mx-5'>
+          <div className='flex flex-col space-y-10 md:my-0'>
+            <h1 className='my-2 text-5xl md:text-6xl font-bold'>Philanthropy and Service</h1>
+            <div className='flex flex-col space-y-10 text-xl font-light'>
               <p>
                 The Sigma Alpha chapter commits itself to philanthropic works, and we have a rich history of great philanthropies such as our Animal House Philanthropy.
               </p>
@@ -26,9 +27,17 @@ const Philanthropy: NextPage<Props> = ({ philanthropy }) => {
             </div>
           </div>
         </div>
-        <div className='text-[#092E6E] w-full bg-[#A5C3F8] p-10'>
-          <div className='bg-white'>
-            <h2 className='font-bold text-5xl'>{philanthropy.title}</h2>
+        <div className='w-full bg-[#A5C3F8] p-8 md:p-16 text-[#092E6E]'>
+          <div className='flex flex-col md:flex-row items-center justify-between bg-white'>
+            <div className='flex flex-col space-y-5 m-10 md:mx-20 md:my-0'>
+              <h2 className='text-4xl md:text-6xl font-bold'>{philanthropy.title}</h2>
+              <h3 className='font-bold text-2xl md:text-3xl'>{philanthropy.subtitle}</h3>
+              <p className='font-light'>{philanthropy.description}</p>
+              <a className="my-10 w-fit bg-[#092E6E] px-5 py-2 text-xl font-light text-white" href='https://aepi.crowdchange.co/30247'>
+                Donate Here
+              </a>
+            </div>
+            <Image alt='Philanthropy' src="/assets/philanthropy/title.png" width={500} height={100} />
           </div>
         </div>
       </Layout >
@@ -48,7 +57,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 
   return {
     props: {
-      philanthropy: await request.json(),
+      philanthropy: (await request.json()).data,
     },
   };
 };

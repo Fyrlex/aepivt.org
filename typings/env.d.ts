@@ -2,7 +2,6 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       DB_NAME: string;
-      MONGO_URI: string;
       CLIENT_ID: string;
       CLIENT_SECRET: string;
       NEXTAUTH_URL: string;

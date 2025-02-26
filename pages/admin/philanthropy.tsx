@@ -1,6 +1,20 @@
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth].js'; 
+import Layout from '../../components/Layout';
+import { useMetaData } from '../../lib/hooks/useMetaData';
+import { authOptions } from '../api/auth/[...nextauth]';
+
+const AdminPhilanthropy: NextPage = () => {
+  return (
+    <>
+      {useMetaData('/admin/login')}
+      <Layout>
+        <h1>Philanthropy</h1>
+
+      </Layout>
+    </>
+  );
+};
 
 export default AdminPhilanthropy;
 

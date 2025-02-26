@@ -1,29 +1,40 @@
+import fs from 'fs';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';
 
-import { EBoardOfficer, IEboardOfficer } from '../../../src/models/Officer';
-import dbConnect from '../../../src/util/dbConnect';
-import { ResponseData } from '../../../typings/index';
-
-dbConnect();
+import { EboardOfficerOptions } from '../../../models/EboardOfficer';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ResponseData<IEboardOfficer | IEboardOfficer[]>>,
+  res: NextApiResponse,
 ): Promise<void> {
   const token = await getToken({ req });
   switch (req.method) {
     case 'GET':
-      res.status(StatusCodes.OK).json({
-        error: false,
-        message: getReasonPhrase(StatusCodes.OK),
-        data: await EBoardOfficer.find({ ...req.query }).sort({ rank: 1 }),
-      });
+      try {
+        const data = fs.readdirSync('./data/eboard').map<EboardOfficerOptions>((file) => {
+          return JSON.parse(fs.readFileSync(`./data/eboard/${file}`, 'utf-8'));
+        }).sort((a, b) => a.rank - b.rank);
+
+        res.status(StatusCodes.OK).json({
+          error: false,
+          message: getReasonPhrase(StatusCodes.OK),
+          data,
+        });
+      } catch (error) {
+        console.error(error);
+
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+          error: true,
+          message: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
+          data: null,
+        });
+      }
 
       break;
 
-    case 'POST': {
+    case 'PATCH': {
       if (token?.email !== 'aepisa.vt@gmail.com') {
         res.status(StatusCodes.FORBIDDEN).json({
           error: true,
@@ -34,31 +45,34 @@ export default async function handler(
         return;
       }
 
-      const officer = new EBoardOfficer(req.body);
+      const data = req.body as EboardOfficerOptions[];
 
       try {
-        await officer.save();
-
-        res.status(StatusCodes.CREATED).json({
-          error: false,
-          message: getReasonPhrase(StatusCodes.CREATED),
-          data: officer,
+        data.forEach((officer) => {
+          fs.writeFileSync(`./data/eboard/${officer.rank}.json`, JSON.stringify(officer));
         });
-      } catch (error) {
-        console.log(error);
 
-        res.status(StatusCodes.BAD_REQUEST).json({
+        res.status(StatusCodes.OK).json({
+          error: false,
+          message: getReasonPhrase(StatusCodes.OK),
+          data,
+        });
+
+      } catch (error) {
+        console.error(error);
+
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
           error: true,
-          message: getReasonPhrase(StatusCodes.BAD_REQUEST),
+          message: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
           data: null,
         });
       }
     } break;
 
     default:
-      res.status(StatusCodes.NOT_FOUND).json({
+      res.status(StatusCodes.METHOD_NOT_ALLOWED).json({
         error: false,
-        message: getReasonPhrase(StatusCodes.NOT_FOUND),
+        message: getReasonPhrase(StatusCodes.METHOD_NOT_ALLOWED),
         data: null,
       });
       break;

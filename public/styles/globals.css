@@ -7,6 +7,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scrollbar-gutter: stable;
+}
+
 .fade-in {
   opacity: 0;
   animation: fadeIn 500ms ease-in-out forwards;

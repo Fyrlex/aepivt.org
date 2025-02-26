@@ -1,30 +1,42 @@
+import fs from 'fs';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';
 
-import { IPhilanthropy, Philanthropy } from '../../../src/models/Philanthropy';
-import dbConnect from '../../../src/util/dbConnect';
+import { PhilanthropyOptions } from '../../../models/Philanthropy.js';
 import { ResponseData } from '../../../typings/index';
-
-dbConnect();
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ResponseData<IPhilanthropy | IPhilanthropy[]>>,
+  res: NextApiResponse<ResponseData<PhilanthropyOptions | PhilanthropyOptions[]>>,
 ): Promise<void> {
   const token = await getToken({ req });
 
   switch (req.method) {
     case 'GET':
-      res.status(StatusCodes.OK).json({
-        error: false,
-        message: getReasonPhrase(StatusCodes.OK),
-        data: await Philanthropy.find({ ...req.query }).sort({ rank: 1 }),
-      });
+      try {
+        const data = JSON.parse(fs.readFileSync(`./data/philanthropy/index.json`, 'utf-8'));
+
+        res.status(StatusCodes.OK).json({
+          error: false,
+          message: getReasonPhrase(StatusCodes.OK),
+          data,
+        });
+
+      } catch (error) {
+        console.error(error);
+
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+          error: true,
+          message: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
+          data: null,
+        });
+
+      }
 
       break;
 
-    case 'POST': {
+    case 'PATCH': {
       if (token?.email !== 'aepisa.vt@gmail.com') {
         res.status(StatusCodes.FORBIDDEN).json({
           error: true,
@@ -35,31 +47,33 @@ export default async function handler(
         return;
       }
 
-      const philanthropy = new Philanthropy(req.body);
+
+      const data = req.body as PhilanthropyOptions;
 
       try {
-        await philanthropy.save();
+        fs.writeFileSync(`./data/philanthropy/index.json`, JSON.stringify(data));
 
-        res.status(StatusCodes.CREATED).json({
+        res.status(StatusCodes.OK).json({
           error: false,
-          message: getReasonPhrase(StatusCodes.CREATED),
-          data: null,
+          message: getReasonPhrase(StatusCodes.OK),
+          data,
         });
-      } catch (error) {
-        console.log(error);
 
-        res.status(StatusCodes.BAD_REQUEST).json({
+      } catch (error) {
+        console.error(error);
+
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
           error: true,
-          message: getReasonPhrase(StatusCodes.BAD_REQUEST),
+          message: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
           data: null,
         });
       }
     } break;
 
     default:
-      res.status(StatusCodes.NOT_FOUND).json({
+      res.status(StatusCodes.METHOD_NOT_ALLOWED).json({
         error: false,
-        message: getReasonPhrase(StatusCodes.NOT_FOUND),
+        message: getReasonPhrase(StatusCodes.METHOD_NOT_ALLOWED),
         data: null,
       });
       break;
