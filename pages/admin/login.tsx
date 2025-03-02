@@ -15,30 +15,30 @@ const AdminLogin: NextPage<Props> = () => {
 
   return (
     <>
-      {useMetaData('Admin Login', '/admin/login')}
+      {useMetaData('/admin/login')}
       <Layout>
-        <div className="flex flex-col items-center justify-center w-full h-full">
+        <div className="flex size-full flex-col items-center justify-center">
           {session ? (
             <>
-              <h1 className="text-center text-4xl mb-4">You are already logged in to admin</h1>
-              <div className="flex flex-col space-y-5 my-10">
-                <Link href={'/admin'} className="text-white bg-[#1767C3] py-2 px-4">
+              <h1 className="mb-4 text-center text-4xl">You are already logged in to admin</h1>
+              <div className="my-10 flex flex-col space-y-5">
+                <Link href={'/admin'} className="bg-[#1767C3] px-4 py-2 text-white">
                   Admin Home
                 </Link>
-                <button onClick={() => signOut()} className="text-white bg-[#1767C3] py-2">
+                <button onClick={() => signOut()} className="bg-[#1767C3] py-2 text-white">
                   Logout
                 </button>
               </div>
             </>
           ) : (
             <>
-              <h1 className="text-center text-3xl mb-4">Please login to access the admin portal.</h1>
+              <h1 className="mb-4 text-center text-3xl">Please login to access the admin portal.</h1>
               <button
-                className="text-white bg-[#1756C3] py-2 px-6"
+                className="bg-[#1756C3] px-6 py-2 text-white"
                 onClick={(): Promise<unknown> =>
                   signIn('google', {
                     redirect: true,
-                    callbackUrl: process.env.NEXT_PUBLIC_URL,
+                    callbackUrl: `${process.env.NEXT_PUBLIC_URL}/admin`,
                   })
                 }
               >

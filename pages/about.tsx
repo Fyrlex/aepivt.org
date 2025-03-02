@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 import Layout from '../components/Layout';
 import { useMetaData } from '../lib/hooks/useMetaData';
+import BlueTitleBar from '../components/BlueTitleBar';
 
 const About: NextPage = () => {
   const foundingFathers = [
@@ -24,13 +25,13 @@ const About: NextPage = () => {
 
   return (
     <>
-      {useMetaData('About', '/about')}
+      {useMetaData('/about')}
       <Layout>
         <div>
-          <Image alt="Group photo" src={'/assets/aepiaboutus.webp'} width={1903} height={640} />
-          <div className="text-center w-[45vw] mx-auto flex flex-col space-y-2 my-10">
-            <h1 className="text-[#1756C3] text-5xl font-bold my-2">About Us</h1>
-            <div className="text-xl font-light flex flex-col space-y-3">
+          <Image alt="Group photo" src={'/assets/aepiaboutus.webp'} width={1903} height={640} className='w-full' />
+          <div className="mx-auto my-10 flex max-w-5xl flex-col space-y-2 text-center">
+            <h1 className="my-2 text-5xl font-bold text-[#1756C3]">About Us</h1>
+            <div className="flex  space-y-3 text-xl font-light flex-col">
               <p>
                 Alpha Epsilon Pi at Virginia Tech is a social fraternity based upon Jewish principles. The brothers of
                 AEPi embody both the values of our fraternity: Faith, Humility, Perseverance, Mutual Helpfulness, and
@@ -43,21 +44,21 @@ const About: NextPage = () => {
               </p>
               <p>
                 Our fraternity is not a religious organization, rather a social one that places emphasis on shared
-                identities, values, and culture.{' '}
+                identities, values, and culture.
               </p>
             </div>
           </div>
-          <div className="text-[#1756C3] text-6xl font-bold text-center bg-[#EFEEE7] py-10 flex flex-col items-center">
-            <p className="w-[40vw]">
+          <div className="flex  items-center bg-[#EFEEE7] p-10 text-center text-4xl font-bold text-[#1756C3] md:text-6xl flex-col">
+            <p className="max-w-3xl">
               &quot;No one could tell me where my soul might be; I searched for G-d, but he eluded me; I sought my
               brother out and found all three.&quot;
             </p>
             <p>- Ernest Howard Crosby</p>
           </div>
-          <div className="flex flex-row my-10 space-x-10 justify-center">
-            <div className="flex flex-col">
-              <h2 className="text-xl text-center my-5">Our Mission</h2>
-              <div className="w-[25vw] flex flex-col space-y-5">
+          <div className="m-10 flex flex-col justify-center text-[#092E6E] md:flex-row md:space-x-10">
+            <div className="flex max-w-lg flex-col">
+              <h2 className="my-5 text-center text-xl">Our Mission</h2>
+              <div className="flex flex-col space-y-5">
                 <p>
                   The mission of Alpha Epsilon Pi is to provide education, resources and training to the future leaders
                   of the world’s Jewish communities. Alpha Epsilon Pi was founded to provide opportunities for Jewish
@@ -71,16 +72,16 @@ const About: NextPage = () => {
                 <p>
                   Our basic purpose is to provide the opportunity for a Jewish man to be able to join an organization
                   whose purpose is not specifically religious, but rather social and cultural in nature.{' '}
-                  <span className="font-normal">
+                  <span className="font-semibold">
                     Alpha Epsilon Pi is a Jewish fraternity and brotherhood that is open to all who are willing to
                     espouse its values and mission.
                   </span>
                 </p>
               </div>
             </div>
-            <div className="flex flex-col">
-              <h2 className="text-xl text-center my-5">Our Vision</h2>
-              <div className="w-[25vw] flex flex-col space-y-5">
+            <div className="flex max-w-lg flex-col">
+              <h2 className="my-5 text-center text-xl">Our Vision</h2>
+              <div className="flex flex-col space-y-5">
                 <p>
                   Alpha Epsilon Pi at Virginia Tech works to be an organization that helps its members become better
                   men, provide tzedekah (charity), support the Jewish community, and serve as an eternal brotherhood
@@ -98,11 +99,9 @@ const About: NextPage = () => {
               </div>
             </div>
           </div>
-          <div className="bg-[#092E6E] text-white">
-            <h2 className="text-6xl font-bold text-center py-32">Our History</h2>
-          </div>
-          <div className="text-xl font-light my-5 flex items-center justify-center">
-            <div className="w-[50vw] text-center flex flex-col space-y-5">
+          <BlueTitleBar title="Our History" />
+          <div className="m-10 flex items-center justify-center text-xl font-light text-[#092E6E]">
+            <div className="flex max-w-3xl flex-col space-y-5 text-center">
               <p>
                 The Sigma Alpha Chapter was originally chartered at the Virginia Polytechnic Institute and State
                 University in 1969. Sigma Alpha was chosen as the Chapter designation as a homage to the Sigma Alpha Mu
@@ -117,8 +116,9 @@ const About: NextPage = () => {
               </p>
               <p className="font-normal">Our Founding Fathers</p>
               <ul>
-                {foundingFathers.map(father => (
-                  <li key={father}>{father}</li>
+                <li className='font-semibold'>Jason Rubin (Founding Master)</li>
+                {foundingFathers.map((father, i) => (
+                  <li key={i}>{father}</li>
                 ))}
               </ul>
             </div>
