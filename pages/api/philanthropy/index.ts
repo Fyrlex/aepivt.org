@@ -15,7 +15,7 @@ export default async function handler(
   switch (req.method) {
     case 'GET':
       try {
-        const data = JSON.parse(fs.readFileSync(`./data/philanthropy/index.json`, 'utf-8'));
+        const data = JSON.parse(fs.readFileSync(`./public/data/philanthropy/index.json`, 'utf-8'));
 
         res.status(StatusCodes.OK).json({
           error: false,
@@ -51,7 +51,7 @@ export default async function handler(
       const data = req.body as PhilanthropyOptions;
 
       try {
-        fs.writeFileSync(`./data/philanthropy/index.json`, JSON.stringify(data));
+        fs.writeFileSync(`./public/data/philanthropy/index.json`, JSON.stringify(data));
 
         res.status(StatusCodes.OK).json({
           error: false,

@@ -9,7 +9,7 @@ export default async function handler(
   switch (req.method) {
     case 'GET':
       try {
-        const data = JSON.parse(fs.readFileSync(`./data/eboard/${req.query.id}.json`, 'utf-8'));
+        const data = JSON.parse(fs.readFileSync(`./public/data/eboard/${req.query.id}.json`, 'utf-8'));
 
         res.status(StatusCodes.OK).json({
           error: false,

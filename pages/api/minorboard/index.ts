@@ -14,8 +14,8 @@ export default async function handler(
   switch (req.method) {
     case 'GET':
       try {
-        const data = fs.readdirSync('./data/minorboard').map<MinorBoardOfficerOptions>((file) => {
-          return JSON.parse(fs.readFileSync(`./data/minorboard/${file}`, 'utf-8'));
+        const data = fs.readdirSync('./public/data/minorboard').map<MinorBoardOfficerOptions>((file) => {
+          return JSON.parse(fs.readFileSync(`./public/data/minorboard/${file}`, 'utf-8'));
         }).sort((a, b) => a.rank - b.rank);
 
         res.status(StatusCodes.OK).json({
@@ -50,7 +50,7 @@ export default async function handler(
 
       try {
         data.forEach((officer) => {
-          fs.writeFileSync(`./data/minorboard/${officer.rank}.json`, JSON.stringify(officer));
+          fs.writeFileSync(`./public/data/minorboard/${officer.rank}.json`, JSON.stringify(officer));
         });
 
         res.status(StatusCodes.OK).json({

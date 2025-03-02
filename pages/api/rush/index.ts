@@ -15,7 +15,7 @@ export default async function handler(
   switch (req.method) {
     case 'GET':
       try {
-        const data = JSON.parse(fs.readFileSync(`./data/rush/index.json`, 'utf-8'));
+        const data = JSON.parse(fs.readFileSync(`./public/data/rush/index.json`, 'utf-8'));
 
         res.status(StatusCodes.OK).json({
           error: false,
@@ -50,7 +50,7 @@ export default async function handler(
       const data = req.body as RushOptions;
 
       try {
-        fs.writeFileSync(`./data/philanthropy/index.json`, JSON.stringify(data));
+        fs.writeFileSync(`./public/data/philanthropy/index.json`, JSON.stringify(data));
 
         res.status(StatusCodes.OK).json({
           error: false,
