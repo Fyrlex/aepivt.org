@@ -13,20 +13,19 @@ export const useMetaData = (url?: string): JSX.Element => {
         property="og:description"
         content="AEPi VT | The Sigma Alpha Chapter of the Alpha Epsilon Pi International Fraternity"
       />
-      <meta property="og:site_name" content="Vinny Anthony" />
+      <meta property="og:site_name" content="AEPi Virginia Tech" />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`https://aepi-vt.org/${url}`} />
       <meta property="og:image" content="https://aepi-vt.org/aepicofa.png" />
       <meta content="#06B6D4" data-react-helmet="true" name="theme-color" />
 
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:title" content="Vinny Anthony" />
+      <meta property="twitter:title" content="AEPi Virginia Tech" />
       <meta property="twitter:image" content="https://aepi-vt.org/aepicofa.png" />
       <meta
         property="twitter:description"
         content="AEPi VT | The Sigma Alpha Chapter of the Alpha Epsilon Pi International Fraternity"
       />
-
     </Head>
   );
 };
