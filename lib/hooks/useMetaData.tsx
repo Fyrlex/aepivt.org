@@ -8,7 +8,7 @@ export const useMetaData = (url?: string): JSX.Element => {
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="description" content="AEPi VT | The Sigma Alpha Chapter of the Alpha Epsilon Pi International Fraternity" />
       <link rel="shortcut icon" href="/favicon.png" type="image/png" />
-      <meta property="og:title" content="Self proclaimed local legend indie sleaze artist" />
+      <meta property="og:title" content="The Sigma Alpha Chapter of the Alpha Epsilon Pi International Fraternity" />
       <meta
         property="og:description"
         content="AEPi VT | The Sigma Alpha Chapter of the Alpha Epsilon Pi International Fraternity"
