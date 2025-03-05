@@ -2,9 +2,9 @@ import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';
 
+import { dbConnect } from '../../../lib/hooks/dbConnect';
 import { Rush, RushOptions } from '../../../models/Rush';
 import { ResponseData } from '../../../typings/index';
-import { dbConnect } from '../../../lib/hooks/dbConnect';
 
 export default async function handler(
   req: NextApiRequest,

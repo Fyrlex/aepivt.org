@@ -2,7 +2,7 @@ import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';
 
-import { Philanthropy, PhilanthropyOptions } from '../../../models/Philanthropy.js';
+import { Philanthropy, PhilanthropyOptions } from '../../../models/Philanthropy';
 import { ResponseData } from '../../../typings/index';
 
 export default async function handler(
