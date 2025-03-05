@@ -37,8 +37,8 @@ const Navbar: FC = () => {
     <nav className="flex flex-row justify-between p-5 md:mx-10 md:px-16 lg:px-20">
       <Link href="/">
         <div className="flex flex-row items-center space-x-5">
-          <Image alt="AEPi Coat of Arms" src={'/assets/aepicofa.png'} width={100} height={100} />
-          <p className="text-4xl font-bold text-[#1756C3]">Alpha Epsilon Pi</p>
+          <Image alt="AEPi Coat of Arms" src={'/assets/aepicofa.png'} width={80} height={80} />
+          <p className="text-2xl lg:text-4xl font-bold text-[#1756C3]">Alpha Epsilon Pi</p>
         </div>
       </Link>
       <div className="hidden flex-row items-center space-x-5 md:flex">
@@ -50,10 +50,10 @@ const Navbar: FC = () => {
       </div>
       {!showMenu && (
         <div
-          className={"z-20 my-auto cursor-pointer transition-all duration-300 ease-in-out hover:scale-90 md:hidden"}
+          className={"z-20 my-auto cursor-pointer transition-all duration-300 ease-in-out md:hidden"}
           onClick={(): void => setShowMenu(!showMenu)}
         >
-          <Image src="/assets/icons/hamburger.svg" width={35} height={35} alt="Navbar" />
+          <Image src="/assets/icons/hamburger.svg" width={25} height={25} alt="Navbar" />
         </div>
       )}
       {showMenu && (

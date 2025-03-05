@@ -1,9 +1,9 @@
 import process from 'process';
 import { GetServerSideProps, NextPage } from 'next';
+import Image from 'next/image.js';
 import Layout from '../components/Layout';
 import { useMetaData } from '../lib/hooks/useMetaData';
 import { PhilanthropyOptions } from '../models/Philanthropy';
-import Image from 'next/image.js';
 
 interface Props {
   philanthropy: PhilanthropyOptions;

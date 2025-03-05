@@ -1,6 +1,9 @@
-import fs from 'fs';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { dbConnect } from '../../../lib/hooks/dbConnect';
+import { EboardOfficer } from '../../../models/EboardOfficer';
+
+dbConnect();
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,7 +12,17 @@ export default async function handler(
   switch (req.method) {
     case 'GET':
       try {
-        const data = JSON.parse(fs.readFileSync(`./data/eboard/${req.query.id}.json`, 'utf-8'));
+        const data = await EboardOfficer.findOne({ rank: req.query.id });
+
+        if (!data) {
+          res.status(StatusCodes.NOT_FOUND).json({
+            error: true,
+            message: getReasonPhrase(StatusCodes.NOT_FOUND),
+            data: null,
+          });
+
+          return;
+        }
 
         res.status(StatusCodes.OK).json({
           error: false,

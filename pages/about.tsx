@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
+import BlueTitleBar from '../components/BlueTitleBar';
 import Layout from '../components/Layout';
 import { useMetaData } from '../lib/hooks/useMetaData';
-import BlueTitleBar from '../components/BlueTitleBar';
 
 const About: NextPage = () => {
   const foundingFathers = [

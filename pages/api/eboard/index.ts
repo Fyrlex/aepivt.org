@@ -1,9 +1,8 @@
-import fs from 'fs';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';
 
-import { EboardOfficerOptions } from '../../../models/EboardOfficer';
+import { EboardOfficer, EboardOfficerOptions } from '../../../models/EboardOfficer';
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,9 +12,7 @@ export default async function handler(
   switch (req.method) {
     case 'GET':
       try {
-        const data = fs.readdirSync('./data/eboard').map<EboardOfficerOptions>((file) => {
-          return JSON.parse(fs.readFileSync(`./data/eboard/${file}`, 'utf-8'));
-        }).sort((a, b) => a.rank - b.rank);
+        const data = await EboardOfficer.find().sort({ rank: 1 });
 
         res.status(StatusCodes.OK).json({
           error: false,
@@ -48,9 +45,9 @@ export default async function handler(
       const data = req.body as EboardOfficerOptions[];
 
       try {
-        data.forEach((officer) => {
-          fs.writeFileSync(`./data/eboard/${officer.rank}.json`, JSON.stringify(officer));
-        });
+        await Promise.all(data.map(async (officer) => {
+          await EboardOfficer.findOneAndUpdate({ rank: officer.rank }, officer, { upsert: true });
+        }));
 
         res.status(StatusCodes.OK).json({
           error: false,

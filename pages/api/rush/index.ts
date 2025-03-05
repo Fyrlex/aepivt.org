@@ -1,9 +1,9 @@
-import fs from 'fs';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';
 
-import { RushOptions } from '../../../models/Rush.js';
+import { dbConnect } from '../../../lib/hooks/dbConnect';
+import { Rush, RushOptions } from '../../../models/Rush';
 import { ResponseData } from '../../../typings/index';
 
 export default async function handler(
@@ -15,7 +15,11 @@ export default async function handler(
   switch (req.method) {
     case 'GET':
       try {
-        const data = JSON.parse(fs.readFileSync(`./data/rush/index.json`, 'utf-8'));
+        await dbConnect();
+
+        const data = await Rush.findOne();
+
+        console.log(data);
 
         res.status(StatusCodes.OK).json({
           error: false,
@@ -50,7 +54,7 @@ export default async function handler(
       const data = req.body as RushOptions;
 
       try {
-        fs.writeFileSync(`./data/philanthropy/index.json`, JSON.stringify(data));
+        await Rush.updateOne({}, data, { upsert: true });
 
         res.status(StatusCodes.OK).json({
           error: false,

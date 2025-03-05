@@ -3,7 +3,7 @@ import BlueTitleBar from '../components/BlueTitleBar';
 import Layout from '../components/Layout';
 import ValueCard from '../components/ValueCard';
 import { useMetaData } from '../lib/hooks/useMetaData';
-import { RushOptions } from '../models/Rush.js';
+import { RushOptions } from '../models/Rush';
 
 interface Props {
   rush: RushOptions;

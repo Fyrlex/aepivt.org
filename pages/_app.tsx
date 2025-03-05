@@ -1,7 +1,9 @@
 import '../public/styles/globals.css';
 
+import { Analytics } from '@vercel/analytics/next';
 import { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
+
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps): JSX.Element {
   return (
@@ -9,6 +11,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
       <SessionProvider session={session}>
         <div className='fade-in'>
           <Component {...pageProps} />
+          <Analytics />
         </div>
       </SessionProvider>
     </>
