@@ -1,21 +1,20 @@
-import fs from 'fs';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';
 
-import { PhilanthropyOptions } from '../../../models/Philanthropy.js';
+import { Philanthropy, PhilanthropyOptions } from '../../../models/Philanthropy.js';
 import { ResponseData } from '../../../typings/index';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ResponseData<PhilanthropyOptions | PhilanthropyOptions[]>>,
+  res: NextApiResponse<ResponseData<PhilanthropyOptions>>,
 ): Promise<void> {
   const token = await getToken({ req });
 
   switch (req.method) {
     case 'GET':
       try {
-        const data = JSON.parse(fs.readFileSync(`./public/data/philanthropy/index.json`, 'utf-8'));
+        const data = await Philanthropy.findOne();
 
         res.status(StatusCodes.OK).json({
           error: false,
@@ -47,11 +46,10 @@ export default async function handler(
         return;
       }
 
-
       const data = req.body as PhilanthropyOptions;
 
       try {
-        fs.writeFileSync(`./public/data/philanthropy/index.json`, JSON.stringify(data));
+        await Philanthropy.updateOne({}, data, { upsert: true });
 
         res.status(StatusCodes.OK).json({
           error: false,

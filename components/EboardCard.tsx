@@ -10,7 +10,7 @@ interface Props {
 const EboardCard: FC<Props> = ({ officer }) => {
   return (
     <>
-      <div className="flex w-full flex-row bg-[#A5C3F8] pb-10">
+      <div className="flex w-full flex-col lg:flex-row bg-[#A5C3F8] pb-10">
         <Image className="" alt={officer.name} src={`/assets/officers/${officer.rank}.jpg`} width={300} height={300} />
         <div className="mx-5 my-10 text-[#092E6E]">
           <h3 className="text-xl font-light">{officer.position}</h3>

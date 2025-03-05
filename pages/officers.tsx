@@ -4,7 +4,7 @@ import EboardCard from '../components/EboardCard';
 import Layout from '../components/Layout';
 import { useMetaData } from '../lib/hooks/useMetaData';
 import { EboardOfficerOptions } from '../models/EboardOfficer';
-import { MinorBoardOfficerOptions } from '../models/MinorBoardOfficer.js';
+import { MinorBoardOfficerOptions } from '../models/MinorBoardOfficer';
 
 interface Props {
   officers: EboardOfficerOptions[];
@@ -38,27 +38,25 @@ const Officers: NextPage<Props> = ({ officers, minorOfficers }) => {
             Order of the Spoon
           </button>
         </div>
-        <div className="my-10 flex justify-center">
-          <div className="grid grid-cols-2 place-items-center gap-20">
-            {officers.map((officer, i) => (
-              <EboardCard officer={officer} key={i} />
-            ))}
-          </div>
+        <div className="m-10 grid grid-cols-1 lg:grid-cols-2 place-items-center gap-20">
+          {officers.map((officer, i) => (
+            <EboardCard officer={officer} key={i} />
+          ))}
         </div>
         <div className="flex flex-col items-center justify-center bg-[#092E6E] py-32 text-center text-white">
           <h2 className="my-3 text-6xl font-bold">Minor Board</h2>
-          <p className='w-1/3 text-3xl font-light'>The Minor Board consists of officers that support the auxillary functions of the fraternity. Members of Minor Board are often Newly Initiated Brothers.</p>
+          <p className='max-w-lg text-3xl font-light'>The Minor Board consists of officers that support the auxillary functions of the fraternity. Members of Minor Board are often Newly Initiated Brothers.</p>
         </div>
-        <div className='flex flex-col items-center justify-center bg-[#A5C3F8] py-10 font-light text-[#092E6E]'>
+        <div className='flex flex-col items-center justify-center bg-[#A5C3F8]  text-center p-10 font-light text-[#092E6E]'>
           {minorOfficers.map((officer, i) => (
-            <p key={i} className='text-2xl'>{officer.position} - {officer.name} &apos;{officer.gradYear}</p>
+            <p key={i} className='text-xl lg:text-2xl'>{officer.position} - {officer.name} &apos;{officer.gradYear}</p>
           ))}
         </div>
         <div className="flex flex-col items-center justify-center bg-[#092E6E] py-32 text-center text-white">
           <h2 className="my-3 text-6xl font-bold">Order of The Spoon</h2>
-          <p className='w-1/3 text-3xl font-light'>Order of the Spoon was created by the Founding Fathers as a way to recognize every Master of the Chapter. The name originates from the Founding Master having to use a spoon as a gavel for chapter meetings because he did not have one. Now the Master&apos;s Gavel has been engraved &quot;The Spoon of Sigma Alpha&quot; as a tribute to the original spoon.</p>
+          <p className='max-w-lg text-3xl font-light'>Order of the Spoon was created by the Founding Fathers as a way to recognize every Master of the Chapter. The name originates from the Founding Master having to use a spoon as a gavel for chapter meetings because he did not have one. Now the Master&apos;s Gavel has been engraved &quot;The Spoon of Sigma Alpha&quot; as a tribute to the original spoon.</p>
         </div>
-        <div className='my-5 flex flex-col items-center text-3xl font-light text-[#092E6E]'>
+        <div className='my-5 flex flex-col items-center text-3xl font-light text-center text-[#092E6E]'>
           <p className='font-normal'>Masters of Sigma Alpha:</p>
           <p>Jason Rubin (Founding Master)</p>
           <p>Alex Nizhnikov (2001)</p>

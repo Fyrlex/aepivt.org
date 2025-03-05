@@ -9,6 +9,7 @@ declare global {
       NEXTAUTH_SECRET: string;
       NEXT_PUBLIC_URL: string;
       RESEND_API_KEY: string;
+      MONGO_URI: string;
     }
   }
 }

@@ -1,9 +1,8 @@
-import fs from 'fs';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';
 
-import { MinorBoardOfficerOptions } from '../../../models/MinorBoardOfficer.js';
+import { MinorBoardOfficer, MinorBoardOfficerOptions } from '../../../models/MinorBoardOfficer';
 import { ResponseData } from '../../../typings/index';
 
 export default async function handler(
@@ -14,9 +13,7 @@ export default async function handler(
   switch (req.method) {
     case 'GET':
       try {
-        const data = fs.readdirSync('./public/data/minorboard').map<MinorBoardOfficerOptions>((file) => {
-          return JSON.parse(fs.readFileSync(`./public/data/minorboard/${file}`, 'utf-8'));
-        }).sort((a, b) => a.rank - b.rank);
+        const data = await MinorBoardOfficer.find().sort({ rank: 1 });
 
         res.status(StatusCodes.OK).json({
           error: false,
@@ -49,9 +46,9 @@ export default async function handler(
       const data = req.body as MinorBoardOfficerOptions[];
 
       try {
-        data.forEach((officer) => {
-          fs.writeFileSync(`./public/data/minorboard/${officer.rank}.json`, JSON.stringify(officer));
-        });
+        await Promise.all(data.map(async (officer) => {
+          await MinorBoardOfficer.findOneAndUpdate({ rank: officer.rank }, officer, { upsert: true });
+        }));
 
         res.status(StatusCodes.OK).json({
           error: false,
