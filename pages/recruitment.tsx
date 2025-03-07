@@ -1,7 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import { useMetaData } from '../lib/hooks/useMetaData';
 import { EboardOfficerOptions } from '../models/EboardOfficer.js';
@@ -13,22 +12,6 @@ interface Props {
 }
 
 const Recruitment: NextPage<Props> = ({ rush, rushChair }) => {
-  const [rushDescription, setRushDescription] = useState<string>(
-    'Rush is currently closed. Reach out to us and we will let you know when the next rush period is.',
-  );
-
-  useEffect(() => {
-    if (rush.status === 'Open') {
-      setRushDescription(
-        'Rush is currently open. View our rush events below to see how you can get involved and meet the brothers.',
-      );
-    } else if (rush.status === 'Informal') {
-      setRushDescription(
-        'Informal Rush is currently open. Reach out to Rush Chair Harrison Cymbler as soon as possible to get involved.',
-      );
-    }
-  }, [rush.status]);
-
   return (
     <>
       {useMetaData('/recruitment')}
@@ -56,8 +39,8 @@ const Recruitment: NextPage<Props> = ({ rush, rushChair }) => {
               </p>
             </div>
           </div>
-          <Link href={'https://docs.google.com/forms/d/1sk40dWAIxu_RCOqHHAY1tPEEu61WfvJD8uMqNTl7RCw/viewform?edit_requested=true'} className="mb-10 bg-[#1767C3] px-4 py-3 text-white">
-            Join Today
+          <Link href={rush.interestUrl} target='_blank' rel='noreferrer noopener' className="my-10 bg-[#1767C3] px-5 py-2 text-xl font-light text-white">
+            Rush Interest
           </Link>
           <div className="flex w-full flex-col items-center bg-[#EFEEE7] py-10 text-center text-5xl font-bold text-[#1756C3]">
             <p>UCSO Affilations</p>
@@ -65,10 +48,6 @@ const Recruitment: NextPage<Props> = ({ rush, rushChair }) => {
               <Image alt="VT IFC" src={'/assets/vtifc.png'} width={250} height={250} />
               <Image alt="VT JSU" src={'/assets/vtjsu.webp'} width={250} height={250} />
             </div>
-          </div>
-          <div className="my-10 text-center">
-            <h2 className="text-5xl font-bold text-[#1756C3]">Rush Status: {rush.status}</h2>
-            <p className="my-10 text-xl">{rushDescription}</p>
           </div>
         </div>
       </Layout>

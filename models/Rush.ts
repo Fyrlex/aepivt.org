@@ -9,7 +9,6 @@ export interface RushEventOptions {
 }
 
 export interface RushOptions {
-  status: 'Open' | 'Informal' | 'Closed';
   interestUrl: string;
   events: RushEventOptions[];
 }
@@ -29,7 +28,6 @@ const RushEventSchema = new Schema<RushEventOptions, RushModel>({
 const RushSchema = new Schema<RushOptions, RushModel>({
   events: [RushEventSchema],
   interestUrl: { type: String, required: true },
-  status: { type: String, required: true },
 },
   {
     collection: 'rush',

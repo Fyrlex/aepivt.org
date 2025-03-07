@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import ValueCard from '../components/ValueCard';
 import { useMetaData } from '../lib/hooks/useMetaData';
 import { RushOptions } from '../models/Rush';
+import Link from 'next/link';
 
 interface Props {
   rush: RushOptions;
@@ -37,9 +38,9 @@ const Home: NextPage<Props> = ({ rush }) => {
           <h1 className='text-with-border text-center text-5xl text-[#1756C3] md:text-8xl -mt-20'>Virginia Tech <br /> Alpha Epsilon Pi</h1>
           <div className='flex flex-col items-center space-y-5'>
             <h2 className='text-with-border text-xl text-[#1756C3] md:text-4xl'>Developing Leadership for the Jewish Community In Blacksburg since 2000</h2>
-            <a href={rush.interestUrl} target='_blank' rel='noreferrer noopener' className="my-10 bg-[#1767C3] px-5 py-2 text-xl font-light text-white">
+            <Link href={rush.interestUrl} target='_blank' rel='noreferrer noopener' className="my-10 bg-[#1767C3] px-5 py-2 text-xl font-light text-white">
               Rush Interest
-            </a>
+            </Link>
           </div>
         </div>
         <div className='text-with-border-black grid grid-cols-1 font-bold text-gray-100 md:grid-cols-3'>
