@@ -10,7 +10,7 @@ export interface AdminCardProps {
 const AdminCard: FC<AdminCardProps> = ({ title, description, url }) => {
   return (
     <>
-      <Link href={`/admin/${url}`}>
+      <Link href={url}>
         <div className='text-white flex flex-col  bg-[#1767C3] items-center p-2 '>
           <p className='text-3xl'>{title}</p>
           <p className='text-xl'>{description}</p>
