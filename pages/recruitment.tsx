@@ -65,7 +65,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
     },
   );
 
-  const requestRushChair = await fetch(`${process.env.NEXTAUTH_URL}/api/eboard/9`,
+  const requestRushChair = await fetch(`${process.env.NEXTAUTH_URL}/api/eboard/8`,
     {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
