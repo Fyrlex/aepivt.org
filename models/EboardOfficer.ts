@@ -7,7 +7,6 @@ export enum EboardOfficerRank {
   Exchequer,
   Sentinel,
   BrotherAtLarge,
-  SocialChair,
   NewMemberEducator,
   RushChair,
 }
