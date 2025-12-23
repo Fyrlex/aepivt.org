@@ -11,22 +11,22 @@ const Admin: NextPage = () => {
     {
       title: 'EBoard',
       description: 'Manage EBoard brothers',
-      url: '/eboard',
+      url: '/admin/eboard',
     },
     {
       title: 'Minor Board',
       description: 'Manage Minor Board brothers',
-      url: '/minorboard',
+      url: '/admin/minorboard',
     },
     {
       title: 'Philanthropy',
       description: 'Manage Philanthropy content',
-      url: '/philanthropy',
+      url: '/admin/philanthropy',
     },
     {
       title: 'Rush',
       description: 'Manage rush events',
-      url: '/rush',
+      url: '/admin/rush',
     },
   ];
 
