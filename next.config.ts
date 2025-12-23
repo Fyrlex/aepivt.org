@@ -1,17 +1,8 @@
-import process from 'process';
-import withBundleAnalyzer from '@next/bundle-analyzer';
 import type { NextConfig } from 'next';
-
-const bundleAnalyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-});
 
 const config: NextConfig = {
   env: {
     NEXT_PUBLIC_ENV: 'PRODUCTION',
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
@@ -26,4 +17,4 @@ const config: NextConfig = {
 
 };
 
-export default bundleAnalyzer(config);
+export default config;
