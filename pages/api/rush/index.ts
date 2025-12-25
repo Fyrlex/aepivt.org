@@ -19,8 +19,6 @@ export default async function handler(
 
         const data = await Rush.findOne();
 
-        console.log(data);
-
         res.status(StatusCodes.OK).json({
           error: false,
           message: getReasonPhrase(StatusCodes.OK),
